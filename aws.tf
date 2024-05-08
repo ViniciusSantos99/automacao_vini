@@ -222,13 +222,13 @@ resource "aws_efs_file_system" "efs_vini" {
 resource "aws_efs_mount_target" "mount_target_pub1a" {
   file_system_id = aws_efs_file_system.efs_vini.id
   subnet_id = aws_subnet.Subrede-Pub1.id
-  security_groups = [aws_security_group.amazon_sg.id]
+  security_groups = [aws_security_group.Grupo-Sec-Linux.id]
 }
 
 resource "aws_efs_mount_target" "mount_target_pub1b" {
   file_system_id = aws_efs_file_system.efs_vini.id
   subnet_id = aws_subnet.Subrede-Pub2.id
-  security_groups = [aws_security_group.amazon_sg.id]
+  security_groups = [aws_security_group.Grupo-Sec-Linux.id]
 }
 
 

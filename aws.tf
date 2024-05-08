@@ -191,14 +191,14 @@ resource "aws_security_group" "Grupo-Sec-Linux" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  #Liberar porta HTTP
+  #Liberar porta HTTPs
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-    #Liberar porta TCPs
+    #Liberar porta TCP
   ingress {
     from_port   = 2049
     to_port     = 2049

@@ -175,6 +175,10 @@ resource "aws_instance" "Amazon-Linux-2" {
 
                 # Montar o sistema de arquivos EFS
                 sudo mkdir /mnt/efs
+
+                # Atribuir permissões à pasta do EFS
+                sudo chmod 777 /mnt/efs
+
                 sudo mount -t efs ${aws_efs_file_system.efs_vini.id}:/ /mnt/efs
                 EOF
     tags = {

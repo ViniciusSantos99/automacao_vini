@@ -107,45 +107,18 @@ resource "aws_instance" "Amazon-Linux" {
   key_name = "Chave-Linux" #alterar da sua chave
   associate_public_ip_address = "true"
   vpc_security_group_ids = [aws_security_group.Grupo-Sec-Linux.id]
-  user_data =  <<-EOF
-                #!/bin/bash
-
-                # Atualizar o hostname 
-                sudo hostnamectl set-hostname amazon-linux
-
-                bash
-
-                # Atualizar todos os pacotes do sistema
-                sudo yum update -y
-
-                # Instalar o Apache
-                sudo yum install -y httpd
-
-                # Habilitar o Apache para iniciar no boot
-                sudo systemctl enable httpd
-
-                # Habilitar o iniciar no boot
-                sudo systemctl start httpd
-
-                # Instalar o Git
-                sudo yum install -y git
-
-                # Clonar o repositório Git
-                sudo git clone https://github.com/FofuxoSibov/sitebike
-
-                # Mover os arquivos para o diretório do Apache
-                sudo mv sitebike/* /var/www/html/
-
-                #Instalar efs untils 
-                sudo yum install -y amazon-efs-utils
-
-                # Montar o sistema de arquivos EFS
-                sudo mkdir /mnt/efs
-                
-                # Atribuir permissões à pasta do EFS
-                sudo chmod 777 /mnt/efs
-                
-                sudo mount -t efs ${aws_efs_file_system.efs_vini.id}:/ /mnt/efs
+  user_data =   <<-EOF
+              #!/bin/bash
+              sudo yum update -y
+              sudo yum install -y httpd git
+              sudo systemctl start httpd
+              sudo systemctl enable httpd
+              sudo yum install -y amazon-efs-utils
+              echo "${aws_efs_file_system.efs_vini.id}:/ /var/www/html efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
+              sudo mount -a
+              sudo rm -rf /var/www/html*
+              sudo git clone https://github.com/FofuxoSibov/sitebike /var/www/html
+              sudo mv /var/www/html/sitebike/* /var/www/html/
                 EOF
     tags = {
       Name = "Amazon-Linux-Vini"
@@ -160,26 +133,17 @@ resource "aws_instance" "Amazon-Linux-2" {
   associate_public_ip_address = "true"
   vpc_security_group_ids = [aws_security_group.Grupo-Sec-Linux.id]
   user_data =   <<-EOF
-                #!/bin/bash
-
-                # Atualizar o hostname 
-                sudo hostnamectl set-hostname amazon-linux2
-
-                bash
-
-                # Atualizar todos os pacotes do sistema
-                sudo yum update -y
-
-                # Instalar o Git
-                sudo yum install -y git
-
-                # Montar o sistema de arquivos EFS
-                sudo mkdir /mnt/efs
-
-                # Atribuir permissões à pasta do EFS
-                sudo chmod 777 /mnt/efs
-
-                sudo mount -t efs ${aws_efs_file_system.efs_vini.id}:/ /mnt/efs
+              #!/bin/bash
+              sudo yum update -y
+              sudo yum install -y httpd git
+              sudo systemctl start httpd
+              sudo systemctl enable httpd
+              sudo yum install -y amazon-efs-utils
+              echo "${aws_efs_file_system.efs_vini.id}:/ /var/www/html efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
+              sudo mount -a
+              sudo rm -rf /var/www/html*
+              sudo git clone https://github.com/FofuxoSibov/sitebike /var/www/html
+              sudo mv /var/www/html/sitebike/* /var/www/html/
                 EOF
     tags = {
       Name = "Amazon-Linux-Vini-2"

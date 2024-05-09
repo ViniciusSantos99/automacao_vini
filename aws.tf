@@ -123,6 +123,8 @@ resource "aws_instance" "Amazon-Linux-2" {
               sudo rm -rf /var/www/html*
               sudo git clone https://github.com/FofuxoSibov/sitebike /var/www/html
               sudo mv /var/www/html/sitebike/* /var/www/html/
+              echo init 6
+            
                 EOF
     tags = {
       Name = "Amazon-Linux-Vini-2"
@@ -177,5 +179,4 @@ resource "aws_efs_mount_target" "mount_target_pub1a" {
   subnet_id = aws_subnet.Subrede-Pub1.id
   security_groups = [aws_security_group.Grupo-Sec-Linux.id]
 }
-
 

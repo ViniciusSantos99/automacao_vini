@@ -6,7 +6,7 @@ on:
       - "main"
     paths:
       - images/**
-      - .github/workflows/main.yml
+      - .github/workflows/sinc.yml
 
 jobs:
   sync_images:

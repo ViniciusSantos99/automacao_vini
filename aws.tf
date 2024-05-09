@@ -108,7 +108,7 @@ resource "aws_instance" "Amazon-Linux-2" {
   ami                    = "ami-07caf09b362be10b8"
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.Subrede-Pub1.id
-  key_name = "Chave-Linux" #alterar da sua chaves
+  key_name = "Chave-Linux" #alterar da sua chave
   associate_public_ip_address = "true"
   vpc_security_group_ids = [aws_security_group.Grupo-Sec-Linux.id]
   user_data =   <<-EOF

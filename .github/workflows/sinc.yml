@@ -2,9 +2,11 @@ name: sincronizar imagens
 
 on:
   push:
+    branches:
+      - "main"
     paths:
-      - '**.jpg'
-      - '**.png'
+      - images/**
+      - .github/workflows/main.yml
 
 jobs:
   sync_images:

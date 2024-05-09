@@ -1,29 +1,8 @@
-#Chamada da Extensão Terraform - Precisa estar instalado anteriormente
-terraform {
-  required_version = ">= 1.3.0" # Obrigatorio estar com a versão 1.3.0 ou superior
-
-  #Escolher o provedor - AWS
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.60.0"
-    }
-  }
-}
-
 #Definir padrões de uso do meu ambiente na AWS
 provider "aws" {
-  
-  region = "us-east-1" #Definir Região
-  shared_config_files = ["C:/Users/48981581886/.aws/config"] 
-  shared_credentials_files = ["C:/Users/48981581886/.aws/credentials"] #Definir ID conta e Key
-
-  default_tags {
-    tags = {
-      owner      = "Vinicius"
-      managed-by = "Vinicius134"
-    }
-  }
+ region = "us-east-1"
+ shared_config_files      = [".aws/config"]
+ shared_credentials_files = [".aws/config"]
 }
 
 # VPC
@@ -128,7 +107,7 @@ resource "aws_instance" "Amazon-Linux" {
 resource "aws_instance" "Amazon-Linux-2" {
   ami                    = "ami-07caf09b362be10b8"
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.Subrede-Pub2.id
+  subnet_id              = aws_subnet.Subrede-Pub1.id
   key_name = "Chave-Linux" #alterar da sua chave
   associate_public_ip_address = "true"
   vpc_security_group_ids = [aws_security_group.Grupo-Sec-Linux.id]
@@ -187,8 +166,10 @@ resource "aws_security_group" "Grupo-Sec-Linux" {
 
 resource "aws_efs_file_system" "efs_vini" {
   creation_token = "vinicius53"
-  performance_mode = "generalPurpose"
-  throughput_mode = "bursting"
+
+    tags ={
+        Name="vinicius53"
+    }
 }
 
 resource "aws_efs_mount_target" "mount_target_pub1a" {

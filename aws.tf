@@ -96,10 +96,10 @@ resource "aws_instance" "Amazon-Linux" {
               sudo mkdir /mnt/efs
               echo "${aws_efs_file_system.efs_vini.id}:/ /mnt/efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
               sudo mount -a
-              sudo rm -rf /var/www/html*
+              sudo rm -rf /var/www/html/*
               sudo git clone https://github.com/FofuxoSibov/sitebike /mnt/efs
-              sudo mv /mnt/efs/sitebike/* /var/www/html/
-                EOF
+              sudo mv /mnt/efs/* /var/www/html/
+              EOF
     tags = {
       Name = "Amazon-Linux-Vini"
   }
@@ -122,9 +122,9 @@ resource "aws_instance" "Amazon-Linux-2" {
               sudo mkdir /mnt/efs
               echo "${aws_efs_file_system.efs_vini.id}:/ /mnt/efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
               sudo mount -a
-              sudo rm -rf /var/www/html*
+              sudo rm -rf /var/www/html/*
               sudo git clone https://github.com/FofuxoSibov/sitebike /mnt/efs
-              sudo mv /mnt/efs/sitebike/* /var/www/html/
+              sudo mv /mnt/efs/* /var/www/html/
               EOF
     tags = {
       Name = "Amazon-Linux-Vini-2"

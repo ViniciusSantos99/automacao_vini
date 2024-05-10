@@ -1,5 +1,4 @@
 name: sincronizar imagens
-#isso
 on:
   push:
     branches:
@@ -26,6 +25,7 @@ jobs:
 
       - name: Sync images to EFS
         run: |
+          sudo su -
           sudo apt-get install -y nfs-common
           mkdir /mnt/efs
           chmod 777 /mnt/efs

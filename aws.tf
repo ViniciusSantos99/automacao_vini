@@ -93,11 +93,12 @@ resource "aws_instance" "Amazon-Linux" {
               sudo systemctl start httpd
               sudo systemctl enable httpd
               sudo yum install -y amazon-efs-utils
-              echo "${aws_efs_file_system.efs_vini.id}:/ /var/www/html efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
+              sudo mkdir /mnt/efs
+              echo "${aws_efs_file_system.efs_vini.id}:/ /mnt/efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
               sudo mount -a
               sudo rm -rf /var/www/html*
-              sudo git clone https://github.com/FofuxoSibov/sitebike /var/www/html
-              sudo mv /var/www/html/sitebike/* /var/www/html/
+              sudo git clone https://github.com/FofuxoSibov/sitebike /mnt/efs
+              sudo mv /mnt/efs/sitebike/* /var/www/html/
                 EOF
     tags = {
       Name = "Amazon-Linux-Vini"
@@ -118,13 +119,13 @@ resource "aws_instance" "Amazon-Linux-2" {
               sudo systemctl start httpd
               sudo systemctl enable httpd
               sudo yum install -y amazon-efs-utils
-              echo "${aws_efs_file_system.efs_vini.id}:/ /var/www/html efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
+              sudo mkdir /mnt/efs
+              echo "${aws_efs_file_system.efs_vini.id}:/ /mnt/efs defaults,_netdev 0 0" | sudo tee -a /etc/fstab
               sudo mount -a
               sudo rm -rf /var/www/html*
-              sudo git clone https://github.com/FofuxoSibov/sitebike /var/www/html
-              sudo mv /var/www/html/sitebike/* /var/www/html/
-            
-                EOF
+              sudo git clone https://github.com/FofuxoSibov/sitebike /mnt/efs
+              sudo mv /mnt/efs/sitebike/* /var/www/html/
+              EOF
     tags = {
       Name = "Amazon-Linux-Vini-2"
   }
